@@ -1,0 +1,12 @@
+*.iml
+**/target/
+**/.classpath
+**/.project
+**/.settings
+**/logs
+**/.idea
+**/bin
+**/build
+.gitignore
+.idea/
+techbiosis.iml
