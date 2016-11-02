@@ -1,6 +1,8 @@
 package com.techbiosis.sortingballs;
 
+import com.techbiosis.validator.Validator;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -8,77 +10,77 @@ import java.util.List;
 
 public class AscRackTest {
 
+	Rack rack;
+	@Before
+	public void setup() {
+		rack = new AscRack(new Validator(), 0, 59);
+	}
 	@Test
 	public void testZeroSizeCase() {
-		Assert.assertEquals(0, new AscRack(0, 59).getBalls().size());
+		Assert.assertEquals(0, rack.getBalls().size());
 	}
 
 	@Test
 	public void testFirstCase() {
-		Rack Rack = new AscRack(0, 59);
-		Rack.add(20);
+		rack.add(20);
 		List<Integer> expected = new LinkedList<>();
 		expected.add(20);
-		Assert.assertEquals(expected, Rack.getBalls());
+		Assert.assertEquals(expected, rack.getBalls());
 	}
 
 	@Test
 	public void testTwoCase() {
-		Rack Rack = new AscRack(0, 59);
-		Rack.add(20);
-		Rack.add(10);
+		rack.add(20);
+		rack.add(10);
 		List<Integer> expected = new LinkedList<>();
 		expected.add(10);
 		expected.add(20);
-		Assert.assertEquals(expected, Rack.getBalls());
+		Assert.assertEquals(expected, rack.getBalls());
 	}
 
 	@Test
 	public void testThreeCase() {
-		Rack Rack = new AscRack(0, 59);
-		Rack.add(20);
-		Rack.add(10);
-		Rack.add(30);
+		rack.add(20);
+		rack.add(10);
+		rack.add(30);
 		List<Integer> expected = new LinkedList<>();
 		expected.add(10);
 		expected.add(20);
 		expected.add(30);
-		Assert.assertEquals(expected, Rack.getBalls());
+		Assert.assertEquals(expected, rack.getBalls());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void belowMinValue() {
-		new AscRack(0, 59).add(-1);
+		rack.add(-1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void aboveMaxValue() {
-		new AscRack(0, 59).add(60);
+		rack.add(60);
 	}
 
 	@Test
 	public void testAddZero() {
-		Rack Rack = new AscRack(0, 59);
-		Rack.add(20);
-		Rack.add(10);
-		Rack.add(30);
-		Rack.add(0);
+		rack.add(20);
+		rack.add(10);
+		rack.add(30);
+		rack.add(0);
 		List<Integer> expected = new LinkedList<>();
 		expected.add(0);
 		expected.add(10);
 		expected.add(20);
 		expected.add(30);
-		Assert.assertEquals(expected, Rack.getBalls());
+		Assert.assertEquals(expected, rack.getBalls());
 	}
 
 	@Test
 	public void testAddFiftyNine() {
-		Rack Rack = new AscRack(0, 59);
-		Rack.add(20);
-		Rack.add(10);
-		Rack.add(30);
-		Rack.add(59);
-		Rack.add(0);
+		rack.add(20);
+		rack.add(10);
+		rack.add(30);
+		rack.add(59);
+		rack.add(0);
 
 		List<Integer> expected = new LinkedList<>();
 		expected.add(0);
@@ -86,7 +88,7 @@ public class AscRackTest {
 		expected.add(20);
 		expected.add(30);
 		expected.add(59);
-		Assert.assertEquals(expected, Rack.getBalls());
+		Assert.assertEquals(expected, rack.getBalls());
 	}
 
 }

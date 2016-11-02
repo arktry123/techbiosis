@@ -7,18 +7,18 @@ public enum Scale {
 	MILLION("million", 1000000, "thousand", 1000), BILLION("billion", 1000000000, "million", 1000000);
 
 	private String name;
-	private int value;
+	private long value;
 	private String prevName;
-	private int prevValue;
+	private long prevValue;
 
-	Scale(String name, int value, String prevName, int prevValue) {
+	Scale(String name, long value, String prevName, long prevValue) {
 		this.value = value;
 		this.name = name;
 		this.prevName = prevName;
 		this.prevValue = prevValue;
 	}
 
-	public int getValue() {
+	public long getValue() {
 		return value;
 	}
 
@@ -26,7 +26,7 @@ public enum Scale {
 		return prevName;
 	}
 
-	public int getPrevValue() {
+	public long getPrevValue() {
 		return prevValue;
 	}
 
@@ -34,7 +34,7 @@ public enum Scale {
 		return " " + name;
 	}
 
-	public static Scale valueOf(int value){
+	public static Scale valueOf(long value){
 		return Stream.of(Scale.values()).filter(s -> s.getValue() == value).findFirst().get();
 	}
 }

@@ -1,5 +1,6 @@
 package com.techbiosis.spellout;
 
+import com.techbiosis.validator.Validator;
 import org.junit.Before;
 import org.junit.Test;
 

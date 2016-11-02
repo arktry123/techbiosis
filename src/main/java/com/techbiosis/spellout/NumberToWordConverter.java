@@ -1,5 +1,7 @@
 package com.techbiosis.spellout;
 
+import com.techbiosis.validator.Validator;
+
 import java.util.stream.Stream;
 
 public class NumberToWordConverter {
@@ -8,14 +10,14 @@ public class NumberToWordConverter {
 	private static final String GENERIC_SEPARATOR = " ";
 	private static final String EMPTY_STRING = "";
 
-	private final int minValue;
-	private final int maxValue;
+	private final long minValue;
+	private final long maxValue;
 	private final Validator validator;
 
 	public NumberToWordConverter(Validator validator) {
 		this.validator = validator;
 		this.minValue = 0;
-		this.maxValue = Stream.of(Scale.values()).map(scale -> scale.getValue()).max(Integer::compare).get();
+		this.maxValue = Stream.of(Scale.values()).map(scale -> scale.getValue()).max(Long::compare).get();
 	}
 
 	private final String[] units = {
@@ -39,8 +41,8 @@ public class NumberToWordConverter {
 
 	private final String HUNDRED = GENERIC_SEPARATOR + "hundred";
 
-	public String convert(final int n) {
-		if (!validator.validate(n))
+	public String convert(final long n) {
+		if (!validator.validateWordConversion(n))
 			throw new IllegalArgumentException("Invalid Input");
 		if (n == minValue)
 			return "zero";
@@ -50,13 +52,13 @@ public class NumberToWordConverter {
 		return convertInternal(n);
 	}
 
-	private String convertInternal(final int n) {
+	private String convertInternal(final long n) {
 		if (n < 20) {
-			return units[n];
+			return units[(int)n];
 		} else if (n < 100) {
-			return tens[n / 10] + ((n % 10 != 0) ? TENS_SEPARATOR : EMPTY_STRING) + units[n % 10];
+			return tens[(int)n / 10] + ((n % 10 != 0) ? TENS_SEPARATOR : EMPTY_STRING) + units[(int)n % 10];
 		} else if (n < 1000) {
-			return units[n / 100] + HUNDRED + ((n % 100 != 0) ? GENERIC_SEPARATOR : EMPTY_STRING) + convertInternal(n % 100);
+			return units[(int)n / 100] + HUNDRED + ((n % 100 != 0) ? GENERIC_SEPARATOR : EMPTY_STRING) + convertInternal(n % 100);
 		} else {
 			//generic logic...
 			for (Scale scale : Scale.values()) {
