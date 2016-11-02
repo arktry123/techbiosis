@@ -1,4 +1,6 @@
-package com.techbiosis.spellout;
+package com.techbiosis.validator;
+
+import com.techbiosis.spellout.Scale;
 
 import java.util.stream.Stream;
 
